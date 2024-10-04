@@ -1,0 +1,91 @@
+body{
+    padding: 0;
+    margin: 0;
+    align-content: center;
+    background-color: whitesmoke;
+}
+
+.nav-bar{
+    background-color: white;
+    display: flex;
+    height: 15pc;
+    width: 100%;
+    align-items: center;
+    overflow: hidden;
+    transition: top 0.3s;
+}
+
+.nav-bar h1{
+    color: black;
+    margin-top: 15%;
+    font-size: 50px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif ;
+    margin-left: 10pc;
+    padding: 0px;
+    flex-direction: column;
+}
+
+
+.nav-bar a{
+    text-decoration: none;
+}
+
+.nav-item{
+    margin-top: 10px;
+    margin-left: 5%;
+}
+
+.nav-bar li{
+    display: flex;
+    font-style: none;
+    list-style: none;
+    margin-left: 4pc;
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    float: left;
+}
+
+.nav-bar li a{
+    text-decoration: none;
+    color: rgb(95, 95, 95);
+    transition: all ease 0.3s;
+}
+
+.nav-bar li a:hover{
+    color: rgb(209, 190, 83);
+}
+
+.icon{
+    margin-left: 10pc;
+}
+
+.carrinho{
+    display: flex;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    margin-left: -20%;
+    align-content: center;
+    height: 55px;
+    width: auto;
+    transition: all ease 0.4s;
+}
+
+.carrinho:hover{
+    transform: scale(1.1);
+}
+
+
+.bar2{
+    display: flex;
+    background-color: rgb(172, 155, 58);
+    height: 3pc;
+}
+
+.bar2 h1{
+    margin: 10px;
+    margin-left: 40%;
+    font-size: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: white;
+}
