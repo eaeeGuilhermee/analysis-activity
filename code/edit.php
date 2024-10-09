@@ -1,43 +1,41 @@
 <?php
 include_once('conexao.php');
 
-// Verifica se o parâmetro 'email' foi enviado via GET
-if (isset($_GET['email'])) {
-    // Sanitiza o email para evitar injeção de SQL
-    $email = mysqli_real_escape_string($conn, $_GET['email']);
+// Sanitize the email using prepared statements
+$email = mysqli_real_escape_string($conn, $_GET['email']);
 
-    // Prepara a consulta SQL utilizando prepared statements
-    $sql = "SELECT * FROM cadastro WHERE email=?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $email);
+// Prepare the SQL statement with placeholders
+$sql = "SELECT * FROM cadastro WHERE email=?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $email);
 
-    // Executa a consulta
-    if ($stmt->execute()) {
-        $result = $stmt->get_result();
+// Execute the statement and handle errors
+if (!$stmt->execute()) {
+    die("Error executing query: " . $stmt->error);
+}
 
-        if ($result->num_rows > 0) {
-            // Obtém os dados do usuário
-            $user_data = $result->fetch_assoc();
+// Get the result set
+$result = $stmt->get_result();
 
-            // Atribui os valores aos campos do formulário
-            $nome = $user_data['nome'];
-            $email = $user_data['email'];
-            // ... outros campos ...
-        } else {
-            echo "Usuário não encontrado.";
-            exit;
-        }
-    } else {
-        echo "Erro ao executar a consulta: " . $stmt->error;
-        exit;
-    }
+// Check if a user was found
+if ($result->num_rows > 0) {
+    // Fetch the user data
+    $user_data = $result->fetch_assoc();
 
-    // Fecha o statement
-    $stmt->close();
+    // Assign values to form fields
+    $nome = $user_data['nome'];
+    $email = $user_data['email'];
+    $senha = $user_data['senha'];
+    $telefone = $user_data['telefone'];
+    $endereco = $user_data['endereco']; 
+    $tipo = $user_data['tipo'];
 } else {
-    header('Location: cliente.php');
+    echo "Usuário não encontrado.";
     exit;
 }
+
+// Close the statement
+$stmt->close();
 ?>
 
 
@@ -136,11 +134,12 @@ if (isset($_GET['email'])) {
         </div>
 
     <div class="box">
-        <form action="save-edit.php" method="POST">
+    <form action="save-edit.php" method="POST" onsubmit="return validateForm();">
+        
             <fieldset>
                 <legend><b>Editar Cliente</b></legend>
                 <br>
-                <label for="nome">Nome:</label>
+          <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome" required>
 
         <label for="email">E-mail:</label>
